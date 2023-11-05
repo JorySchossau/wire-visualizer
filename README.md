@@ -38,9 +38,15 @@ WireBrains are a cellular automata leveraged as a cognitive substrate for decisi
 * `shift+scroll` simulation speed multiplier
 * `click+drag` rotate view
 
-### Input
+### Input / Running
 
 Two files are needed, the overall configuration and the specific activations. For example, here are the configurations for the image above that has two inputs (at the bottom) and two outputs (at the top).
+
+```
+./wire_vis -- config.csv activations.csv
+```
+
+Mind the double dashes! Everything before the `--` is a general Godot Engine option. Everything after is an option for our specific simulation.
 
 The `config.csv` file
 
