@@ -1,0 +1,170 @@
+[gd_scene load_steps=10 format=3 uid="uid://dgeffnhytjm2v"]
+
+[ext_resource type="Script" path="res://main.cs" id="1_hxw7r"]
+[ext_resource type="Script" path="res://addons/goutte.camera.trackball/trackball_camera.gd" id="2_txn25"]
+[ext_resource type="PackedScene" uid="uid://ch8c7le4wxfdn" path="res://cube.tscn" id="3_8oe8m"]
+[ext_resource type="Texture2D" uid="uid://g4gjlwdoliue" path="res://Blue Star.png" id="4_4ykwb"]
+
+[sub_resource type="Environment" id="Environment_y026e"]
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.1
+glow_intensity = 0.3
+glow_bloom = 1.0
+glow_blend_mode = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rtif1"]
+no_depth_test = true
+
+[sub_resource type="TubeTrailMesh" id="TubeTrailMesh_rm6vi"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_cijdy"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8vfkb"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_hxw7r")
+ColorRefractory = Color(0.886275, 0.337255, 0, 1)
+ColorUnused = Color(0.701961, 0.701961, 0.701961, 1)
+ColorReady = Color(0.247059, 0.247059, 0.247059, 1)
+ColorOn = Color(0.980392, 0.968627, 0.180392, 1)
+ColorInput = Color(0.0196078, 1, 0.12549, 1)
+EmissionRefractory = Color(0, 0, 0, 1)
+EmissionUnused = Color(0, 0, 0, 1)
+EmissionReady = Color(0, 0, 0, 1)
+EmissionOn = Color(0, 0, 0, 1)
+EmissionInput = Color(0, 0, 0, 1)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_y026e")
+
+[node name="cubes" type="Node3D" parent="."]
+
+[node name="camera_focus" type="Node3D" parent="."]
+
+[node name="camera" type="Camera3D" parent="camera_focus"]
+script = ExtResource("2_txn25")
+stabilize_horizon = true
+
+[node name="MeshInstance3D" parent="." instance=ExtResource("3_8oe8m")]
+
+[node name="MeshInstance3D2" parent="." instance=ExtResource("3_8oe8m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+
+[node name="MeshInstance3D3" parent="." instance=ExtResource("3_8oe8m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -1)
+
+[node name="MeshInstance3D4" parent="." instance=ExtResource("3_8oe8m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -2)
+
+[node name="Signal" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -15)
+
+[node name="arrow_shaft" type="MeshInstance3D" parent="Signal"]
+transform = Transform3D(0.0499975, -0.0100878, 2.20477e-11, 0, -4.37114e-08, -0.05, 0.000504392, 0.999949, -2.18546e-09, 0, 0, -0.5)
+visible = false
+material_override = SubResource("StandardMaterial3D_rtif1")
+mesh = SubResource("TubeTrailMesh_rm6vi")
+
+[node name="arrow_head" type="MeshInstance3D" parent="Signal"]
+transform = Transform3D(0.3, 0, 0, 0, -1.31134e-08, -0.3, 0, 0.3, -1.31134e-08, 0, 0, 0.1)
+visible = false
+mesh = SubResource("PrismMesh_cijdy")
+
+[node name="ball" type="Sprite3D" parent="Signal"]
+visible = false
+pixel_size = 0.0025
+billboard = 1
+double_sided = false
+no_depth_test = true
+texture = ExtResource("4_4ykwb")
+
+[node name="ui" type="CanvasLayer" parent="."]
+
+[node name="help" type="AspectRatioContainer" parent="ui"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -50.0
+offset_right = 150.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="CenterContainer" type="CenterContainer" parent="ui/help"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="ColorRect" type="ColorRect" parent="ui/help/CenterContainer"]
+custom_minimum_size = Vector2(600, 600)
+layout_mode = 2
+color = Color(0.0196078, 0.0196078, 0.0196078, 0.694118)
+
+[node name="label" type="RichTextLabel" parent="ui/help/CenterContainer/ColorRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1
+anchor_top = 0.1
+anchor_right = 0.9
+anchor_bottom = 0.9
+theme_override_font_sizes/normal_font_size = 26
+text = "F - Fullscreen
+ESC - Exit
+P - Pause
+M - Movement Rotation
+S - Animated Signal Spheres
+A - Alt/Transparent Ready
+C - Cube Vis
+T - Signal Traces
+D - Show IDs
+I - Show Icons
+U - Show sub update #"
+
+[node name="toast_panel" type="PanelContainer" parent="ui"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_8vfkb")
+
+[node name="label" type="Label" parent="ui/toast_panel"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 26
+text = "Speed: 6"
+horizontal_alignment = 2
+
+[node name="brain_update_panel" type="PanelContainer" parent="ui"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_8vfkb")
+
+[node name="label" type="Label" parent="ui/brain_update_panel"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 26
+text = "update: 0.-1"
+horizontal_alignment = 2
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.855265, 0.220479, -0.468946, 0, 0.904968, 0.425479, 0.518191, -0.363897, 0.773988, -3.57714, 0.185922, 3.58951)
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.0426956, -0.425091, 0.904143, -1.54433e-08, 0.904968, 0.425479, -0.999088, 0.0181661, -0.0386382, 4.13017, 0.185922, -5.44489)

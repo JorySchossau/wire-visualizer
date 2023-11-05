@@ -1,0 +1,56 @@
+[gd_scene load_steps=5 format=3 uid="uid://ch8c7le4wxfdn"]
+
+[ext_resource type="Texture2D" uid="uid://ci2v1bjo4yaud" path="res://plug.png" id="1_pukfv"]
+[ext_resource type="Texture2D" uid="uid://23cq6udgx2u0" path="res://outlet.png" id="2_v6t6g"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_faqgw"]
+resource_local_to_scene = true
+size = Vector3(0.95, 0.95, 0.95)
+
+[sub_resource type="TorusMesh" id="TorusMesh_yym37"]
+inner_radius = 0.7
+rings = 32
+ring_segments = 16
+
+[node name="root" type="Node3D"]
+
+[node name="mesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_faqgw")
+
+[node name="Label3D" type="Label3D" parent="."]
+visible = false
+billboard = 1
+double_sided = false
+no_depth_test = true
+text = "(0, 0, 0)"
+
+[node name="ports" type="Node3D" parent="."]
+visible = false
+
+[node name="port" type="Node3D" parent="ports"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ports/port"]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0.5, 0)
+mesh = SubResource("TorusMesh_yym37")
+skeleton = NodePath("../..")
+
+[node name="icons" type="Node3D" parent="."]
+visible = false
+
+[node name="plug" type="Sprite3D" parent="icons"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+visible = false
+gi_mode = 0
+billboard = 1
+double_sided = false
+no_depth_test = true
+texture = ExtResource("1_pukfv")
+
+[node name="outlet" type="Sprite3D" parent="icons"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+visible = false
+gi_mode = 0
+billboard = 1
+double_sided = false
+no_depth_test = true
+texture = ExtResource("2_v6t6g")

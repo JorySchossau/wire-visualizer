@@ -1,0 +1,10 @@
+name,values
+scale,"3,4,3"
+wire,"100001000100101000010000010000000000"
+wire_active,"100001000100101000010000010000000000"
+T0_cells,"0,5"
+T1_cells,"19,25"
+nrRecurrent,0
+clearBetweenUpdates,1
+decay,1
+brainUpdates,2
