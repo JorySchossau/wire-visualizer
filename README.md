@@ -38,6 +38,14 @@ WireBrains are a cellular automata leveraged as a cognitive substrate for decisi
 * `shift+scroll` simulation speed multiplier
 * `click+drag` rotate view
 
+### Will it Work?
+
+Run the test. Sometimes the computer's GPU will not be working correctly, but no errors will be generated. This test will actually test GPU functionality.
+```
+./wire_vis -- test
+```
+Should then tell you whether or not the wire visualizer will work as intended.
+
 ### Input / Running
 
 Two files are needed, the overall configuration and the specific activations. For example, here are the configurations for the image above that has two inputs (at the bottom) and two outputs (at the top).
